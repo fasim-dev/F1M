@@ -2,32 +2,27 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#070b11">
-<meta name="description" content="FASIM 1M PRO Trading Bot">
-<link rel="manifest" href="manifest.json">
-<title>FASIM 1M PRO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>FASIM 1M — XAUUSD SMC PRO</title>
 
 <style>
 :root{
-  --bg:#070b11;
-  --panel:#0d131c;
-  --panel2:#111925;
-  --panel3:#151f2c;
-  --line:#202b39;
-  --text:#eef5f7;
-  --muted:#82909f;
-  --green:#55e6a5;
-  --green2:#8af0c1;
-  --blue:#62b8ff;
-  --purple:#ad8cff;
-  --red:#ff7187;
-  --yellow:#f5c969;
-  --orange:#ff9d66;
-  --cyan:#61e7e0;
-  --radius:18px;
-  --shadow:0 12px 35px rgba(0,0,0,.25);
+  --bg:#071018;
+  --panel:#0d1822;
+  --panel2:#111f2b;
+  --border:#203442;
+  --text:#e8f1f7;
+  --muted:#8da4b3;
+  --green:#35e0a1;
+  --green2:#1bbf83;
+  --red:#ff637d;
+  --blue:#55b9ff;
+  --purple:#b58cff;
+  --yellow:#ffd166;
+  --cyan:#58e1ff;
+  --orange:#ffad66;
+  --shadow:0 8px 30px rgba(0,0,0,.25);
 }
 
 *{
@@ -40,858 +35,450 @@ html,body{
   padding:0;
   background:var(--bg);
   color:var(--text);
-  font-family:
-    Inter,system-ui,-apple-system,BlinkMacSystemFont,
-    "Segoe UI",Roboto,Arial,sans-serif;
+  font-family:Inter,Arial,sans-serif;
 }
 
 body{
   min-height:100vh;
-  padding-bottom:90px;
-}
-
-button,
-input,
-select{
-  font:inherit;
+  padding-bottom:75px;
 }
 
 button{
-  border:0;
-  cursor:pointer;
+  font:inherit;
 }
-
-.app{
-  width:100%;
-  max-width:720px;
-  margin:auto;
-}
-
-/* ================= HEADER ================= */
 
 .header{
   position:sticky;
   top:0;
   z-index:50;
-  background:rgba(7,11,17,.92);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--line);
+  background:rgba(7,16,24,.96);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  padding:12px 14px;
 }
 
-.header-inner{
-  min-height:68px;
+.header-row{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  padding:10px 16px;
+  align-items:center;
+  gap:10px;
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:11px;
-}
-
-.logo{
-  width:40px;
-  height:40px;
-  border-radius:13px;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,#55e6a5,#62b8ff);
-  color:#06100d;
-  font-weight:950;
-  font-size:13px;
-  box-shadow:0 0 25px rgba(85,230,165,.2);
-}
-
-.brand-title{
-  font-size:15px;
+  font-size:18px;
   font-weight:900;
-  letter-spacing:.5px;
+  letter-spacing:.4px;
 }
 
-.brand-sub{
+.brand small{
+  display:block;
+  margin-top:3px;
   color:var(--muted);
   font-size:10px;
-  margin-top:2px;
+  font-weight:700;
 }
 
-.status-pill{
+.connection{
   display:flex;
   align-items:center;
-  gap:7px;
-  border:1px solid rgba(85,230,165,.22);
-  color:var(--green);
-  background:rgba(85,230,165,.07);
-  padding:7px 10px;
-  border-radius:30px;
+  gap:6px;
+  padding:6px 9px;
+  border:1px solid var(--border);
+  border-radius:20px;
   font-size:10px;
   font-weight:800;
 }
 
 .dot{
-  width:7px;
-  height:7px;
+  width:8px;
+  height:8px;
   border-radius:50%;
-  background:currentColor;
-  box-shadow:0 0 10px currentColor;
+  background:var(--yellow);
+  box-shadow:0 0 10px rgba(255,209,102,.5);
 }
 
-/* ================= CONTENT ================= */
-
-main{
-  padding:14px;
+.dot.online{
+  background:var(--green);
+  box-shadow:0 0 10px rgba(53,224,161,.6);
 }
 
-.screen{
-  display:none;
+.dot.offline{
+  background:var(--red);
+  box-shadow:0 0 10px rgba(255,99,125,.6);
 }
 
-.screen.active{
-  display:block;
+.container{
+  width:min(1180px,100%);
+  margin:auto;
+  padding:12px;
 }
 
-.section-title{
+.card{
+  background:linear-gradient(145deg,var(--panel),var(--panel2));
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  margin-bottom:12px;
+  overflow:hidden;
+}
+
+.card-head{
+  padding:11px 13px;
+  border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin:8px 2px 10px;
+  gap:8px;
 }
 
-.section-title h2{
-  margin:0;
-  font-size:14px;
+.card-title{
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.5px;
 }
 
-.section-title span{
+.card-sub{
+  font-size:9px;
   color:var(--muted);
-  font-size:10px;
 }
 
-/* ================= CARDS ================= */
-
-.card{
-  background:linear-gradient(
-    145deg,
-    rgba(17,25,37,.98),
-    rgba(11,17,25,.98)
-  );
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow);
-}
-
-.card-pad{
+.price-card{
   padding:15px;
 }
 
-.grid{
-  display:grid;
-  gap:10px;
-}
-
-.grid2{
-  grid-template-columns:repeat(2,minmax(0,1fr));
-}
-
-.grid3{
-  grid-template-columns:repeat(3,minmax(0,1fr));
-}
-
-.metric{
-  padding:13px;
-}
-
-.metric-label{
+.price-label{
   color:var(--muted);
-  font-size:9px;
-  text-transform:uppercase;
-  letter-spacing:.7px;
-}
-
-.metric-value{
-  font-size:17px;
-  font-weight:900;
-  margin-top:6px;
-}
-
-.green{color:var(--green)}
-.red{color:var(--red)}
-.blue{color:var(--blue)}
-.purple{color:var(--purple)}
-.yellow{color:var(--yellow)}
-.muted{color:var(--muted)}
-
-/* ================= ASSET ================= */
-
-.asset-switch{
-  display:flex;
-  gap:7px;
-  overflow:auto;
-  scrollbar-width:none;
-  margin-bottom:12px;
-}
-
-.asset-switch::-webkit-scrollbar{
-  display:none;
-}
-
-.asset-btn{
-  white-space:nowrap;
-  padding:9px 14px;
-  border-radius:12px;
-  border:1px solid var(--line);
-  background:var(--panel);
-  color:var(--muted);
+  font-size:10px;
   font-weight:800;
-  font-size:11px;
-}
-
-.asset-btn.active{
-  color:#06100d;
-  background:var(--green);
-  border-color:var(--green);
-}
-
-/* ================= HERO ================= */
-
-.hero{
-  padding:17px;
-  overflow:hidden;
-  position:relative;
-}
-
-.hero:after{
-  content:"";
-  position:absolute;
-  width:180px;
-  height:180px;
-  right:-80px;
-  top:-100px;
-  border-radius:50%;
-  background:rgba(85,230,165,.08);
-  filter:blur(4px);
-}
-
-.hero-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-}
-
-.symbol{
-  font-size:12px;
-  font-weight:900;
-  color:var(--muted);
 }
 
 .price{
-  font-size:31px;
+  font-size:29px;
   font-weight:950;
-  letter-spacing:-1.5px;
-  margin-top:5px;
-}
-
-.change{
   margin-top:4px;
-  font-size:11px;
-  font-weight:800;
 }
 
-.signal-box{
-  text-align:right;
-}
-
-.signal{
-  font-size:20px;
-  font-weight:950;
-}
-
-.signal-meta{
+.price-time{
+  margin-top:4px;
+  color:var(--muted);
   font-size:9px;
-  color:var(--muted);
-  margin-top:4px;
 }
 
-/* ================= SCORE ================= */
-
-.score{
-  display:flex;
-  align-items:center;
-  gap:13px;
-  margin-top:17px;
+.tv-wrap{
+  padding:0;
 }
 
-.score-ring{
-  width:72px;
-  height:72px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:
-    radial-gradient(circle at center,
-      var(--panel) 57%,
-      transparent 58%),
-    conic-gradient(
-      var(--green) 0deg,
-      var(--green) 310deg,
-      #23303d 310deg
-    );
-}
-
-.score-number{
-  font-size:18px;
-  font-weight:950;
-}
-
-.score-info{
-  flex:1;
-}
-
-.score-title{
-  font-size:12px;
-  font-weight:900;
-}
-
-.score-desc{
-  font-size:10px;
-  color:var(--muted);
-  line-height:1.5;
-  margin-top:4px;
-}
-
-/* ================= CHART ================= */
-
-.chart-card{
-  overflow:hidden;
-}
-
-.chart{
-  height:270px;
-  position:relative;
-  overflow:hidden;
-  background:
-    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),
-    #090f17;
-  background-size:40px 40px;
-}
-
-.chart svg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-}
-
-.zone{
-  position:absolute;
-  left:13%;
-  right:8%;
-  border-radius:8px;
-  pointer-events:none;
-}
-
-.zone-demand{
-  bottom:22%;
-  height:17%;
-  background:rgba(85,230,165,.11);
-  border:1px solid rgba(85,230,165,.35);
-}
-
-.zone-supply{
-  top:19%;
-  height:15%;
-  background:rgba(255,113,135,.10);
-  border:1px solid rgba(255,113,135,.34);
-}
-
-.fvg{
-  top:41%;
-  height:10%;
-  background:rgba(98,184,255,.09);
-  border:1px dashed rgba(98,184,255,.45);
-}
-
-.zone-label{
-  position:absolute;
-  left:7px;
-  top:6px;
-  font-size:8px;
-  font-weight:900;
-  opacity:.85;
-}
-
-.entry-line{
-  position:absolute;
-  left:0;
-  right:0;
-  top:57%;
-  border-top:1px dashed var(--green);
-}
-
-.sl-line{
-  position:absolute;
-  left:0;
-  right:0;
-  top:76%;
-  border-top:1px dashed var(--red);
-}
-
-.tp-line{
-  position:absolute;
-  left:0;
-  right:0;
-  top:35%;
-  border-top:1px dashed var(--blue);
-}
-
-.chart-tag{
-  position:absolute;
-  right:8px;
-  padding:4px 7px;
-  font-size:8px;
-  font-weight:900;
-  border-radius:5px;
-  background:#0b1119;
-  border:1px solid var(--line);
-}
-
-.tag-entry{top:calc(57% - 10px);color:var(--green)}
-.tag-sl{top:calc(76% - 10px);color:var(--red)}
-.tag-tp{top:calc(35% - 10px);color:var(--blue)}
-
-.chart-footer{
-  padding:10px 12px;
+.tv-toolbar{
   display:flex;
   gap:7px;
-  overflow:auto;
-  border-top:1px solid var(--line);
+  overflow-x:auto;
+  padding:10px;
+  border-bottom:1px solid var(--border);
 }
 
 .tf{
-  padding:6px 10px;
-  border-radius:8px;
-  background:var(--panel2);
+  flex:0 0 auto;
+  border:1px solid var(--border);
+  background:#0b151e;
   color:var(--muted);
-  font-size:9px;
+  padding:7px 12px;
+  border-radius:9px;
+  font-size:10px;
   font-weight:800;
 }
 
 .tf.active{
-  color:var(--green);
-  border:1px solid rgba(85,230,165,.3);
+  color:#071018;
+  background:var(--cyan);
+  border-color:var(--cyan);
 }
 
-/* ================= MTF ================= */
-
-.mtf{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
+#tradingview_chart{
+  width:100%;
+  height:520px;
 }
 
-.mtf-card{
-  padding:12px;
-  text-align:center;
-  border-radius:13px;
-  background:var(--panel2);
-  border:1px solid var(--line);
-}
-
-.mtf-name{
-  color:var(--muted);
-  font-size:9px;
-}
-
-.mtf-value{
-  font-size:12px;
-  font-weight:900;
-  margin-top:5px;
-}
-
-.mtf-state{
-  font-size:8px;
-  margin-top:3px;
-}
-
-/* ================= TRADE ================= */
-
-.trade-level{
+.grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:7px;
-  margin-top:12px;
+  gap:8px;
+  padding:10px;
 }
 
-.level{
-  background:var(--panel2);
-  border:1px solid var(--line);
-  border-radius:11px;
-  padding:9px;
+.metric{
+  min-width:0;
+  background:#0a151e;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px;
 }
 
-.level small{
-  display:block;
+.metric-label{
   color:var(--muted);
   font-size:8px;
+  font-weight:800;
+  text-transform:uppercase;
 }
 
-.level strong{
-  display:block;
+.metric-value{
+  margin-top:5px;
+  font-size:12px;
+  font-weight:900;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.signal{
+  margin:10px;
+  padding:16px;
+  border-radius:15px;
+  border:1px solid var(--border);
+  background:#09141d;
+  text-align:center;
+}
+
+.signal.neutral{
+  border-color:var(--border);
+}
+
+.signal.buy{
+  border-color:rgba(53,224,161,.65);
+  background:rgba(53,224,161,.07);
+}
+
+.signal.sell{
+  border-color:rgba(255,99,125,.65);
+  background:rgba(255,99,125,.07);
+}
+
+.signal-type{
   font-size:11px;
-  margin-top:4px;
-}
-
-.trade-actions{
-  display:flex;
-  gap:8px;
-  margin-top:12px;
-}
-
-.btn{
-  flex:1;
-  min-height:40px;
-  border-radius:11px;
-  padding:9px 12px;
-  background:var(--panel3);
-  color:var(--text);
-  border:1px solid var(--line);
-  font-size:10px;
+  color:var(--muted);
   font-weight:900;
 }
 
-.btn-green{
-  background:var(--green);
-  color:#06100d;
-  border-color:var(--green);
-}
-
-.btn-red{
-  background:rgba(255,113,135,.1);
-  color:var(--red);
-  border-color:rgba(255,113,135,.3);
-}
-
-.btn-blue{
-  background:rgba(98,184,255,.1);
-  color:var(--blue);
-  border-color:rgba(98,184,255,.3);
-}
-
-/* ================= BOT ================= */
-
-.bot-status{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.bot-state{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.bot-circle{
-  width:45px;
-  height:45px;
-  border-radius:14px;
-  display:grid;
-  place-items:center;
-  background:rgba(85,230,165,.1);
-  color:var(--green);
-}
-
-.bot-title{
-  font-size:15px;
+.signal-main{
+  margin-top:4px;
+  font-size:29px;
   font-weight:950;
 }
 
-.bot-sub{
+.signal.buy .signal-main{
+  color:var(--green);
+}
+
+.signal.sell .signal-main{
+  color:var(--red);
+}
+
+.signal-meta{
+  margin-top:6px;
   color:var(--muted);
-  font-size:9px;
-  margin-top:3px;
+  font-size:10px;
 }
 
-.switch{
-  width:51px;
-  height:29px;
-  border-radius:30px;
-  background:#26313d;
-  padding:3px;
-  transition:.2s;
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  padding:10px;
 }
 
-.switch i{
-  display:block;
-  width:23px;
-  height:23px;
-  border-radius:50%;
-  background:#fff;
-  transition:.2s;
+.level{
+  background:#0a151e;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:11px;
 }
 
-.switch.on{
-  background:var(--green);
+.level-name{
+  font-size:8px;
+  color:var(--muted);
+  font-weight:900;
 }
 
-.switch.on i{
-  transform:translateX(22px);
+.level-value{
+  margin-top:5px;
+  font-size:13px;
+  font-weight:950;
 }
 
-/* ================= LIST ================= */
-
-.list{
-  display:flex;
-  flex-direction:column;
+.entry{
+  border-color:rgba(88,225,255,.45);
 }
 
-.list-item{
+.sl{
+  border-color:rgba(255,99,125,.45);
+}
+
+.tp{
+  border-color:rgba(53,224,161,.35);
+}
+
+.zones{
+  padding:10px;
+}
+
+.zone{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:10px;
-  padding:13px 0;
-  border-bottom:1px solid var(--line);
+  gap:8px;
+  padding:11px;
+  margin-bottom:7px;
+  border-radius:11px;
+  background:#0a151e;
+  border:1px solid var(--border);
 }
 
-.list-item:last-child{
-  border-bottom:0;
-}
-
-.list-left{
-  min-width:0;
-}
-
-.list-title{
-  font-size:11px;
-  font-weight:900;
-}
-
-.list-sub{
-  font-size:8px;
-  color:var(--muted);
-  margin-top:4px;
-}
-
-.list-right{
-  text-align:right;
-}
-
-.list-price{
-  font-size:11px;
-  font-weight:900;
-}
-
-.badge{
-  display:inline-flex;
-  padding:4px 7px;
-  border-radius:7px;
-  font-size:8px;
-  font-weight:900;
-}
-
-.badge-green{
-  color:var(--green);
-  background:rgba(85,230,165,.08);
-}
-
-.badge-red{
-  color:var(--red);
-  background:rgba(255,113,135,.08);
-}
-
-.badge-blue{
-  color:var(--blue);
-  background:rgba(98,184,255,.08);
-}
-
-.badge-yellow{
-  color:var(--yellow);
-  background:rgba(245,201,105,.08);
-}
-
-/* ================= FORMS ================= */
-
-.field{
-  margin-bottom:12px;
-}
-
-.field:last-child{
+.zone:last-child{
   margin-bottom:0;
 }
 
-.field label{
-  display:block;
-  font-size:9px;
-  color:var(--muted);
-  margin-bottom:6px;
-}
-
-.field input,
-.field select{
-  width:100%;
-  border:1px solid var(--line);
-  outline:none;
-  background:var(--panel2);
-  color:var(--text);
-  padding:11px;
-  border-radius:11px;
-}
-
-.field input:focus,
-.field select:focus{
-  border-color:rgba(85,230,165,.45);
-}
-
-/* ================= NAV ================= */
-
-.bottom-nav{
-  position:fixed;
-  z-index:100;
-  left:50%;
-  bottom:0;
-  transform:translateX(-50%);
-  width:100%;
-  max-width:720px;
-  padding:8px 10px calc(8px + env(safe-area-inset-bottom));
-  background:rgba(7,11,17,.96);
-  backdrop-filter:blur(20px);
-  border-top:1px solid var(--line);
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-}
-
-.nav-btn{
-  background:none;
-  color:var(--muted);
-  padding:7px 2px;
-  font-size:8px;
-  font-weight:800;
-}
-
-.nav-icon{
-  font-size:17px;
-  line-height:1;
-  margin-bottom:4px;
-}
-
-.nav-btn.active{
-  color:var(--green);
-}
-
-/* ================= TOAST ================= */
-
-.toast{
-  position:fixed;
-  z-index:200;
-  left:50%;
-  bottom:90px;
-  transform:translate(-50%,20px);
-  width:min(90%,430px);
-  padding:12px 15px;
-  border:1px solid var(--line);
-  border-radius:13px;
-  background:#101823;
-  box-shadow:var(--shadow);
-  font-size:10px;
-  opacity:0;
-  pointer-events:none;
-  transition:.25s;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
-}
-
-/* ================= HEALTH ================= */
-
-.health{
-  display:grid;
-  gap:8px;
-}
-
-.health-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px;
-  border-radius:10px;
-  background:var(--panel2);
-}
-
-.health-name{
-  font-size:10px;
-}
-
-.health-status{
-  font-size:9px;
+.zone-name{
   font-weight:900;
+  font-size:10px;
 }
 
-/* ================= TABLE ================= */
+.zone-price{
+  font-size:10px;
+  color:var(--muted);
+  text-align:right;
+}
 
-.table-wrap{
-  overflow:auto;
+.demand{
+  border-left:3px solid var(--green);
+}
+
+.supply{
+  border-left:3px solid var(--red);
+}
+
+.fvg-bull{
+  border-left:3px solid var(--blue);
+}
+
+.fvg-bear{
+  border-left:3px solid var(--purple);
+}
+
+.history-wrap{
+  overflow-x:auto;
+  padding:10px;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
-  min-width:520px;
+  min-width:600px;
+}
+
+th,td{
+  padding:9px 7px;
+  border-bottom:1px solid var(--border);
+  font-size:9px;
+  text-align:left;
+  white-space:nowrap;
 }
 
 th{
-  text-align:left;
   color:var(--muted);
   font-size:8px;
-  padding:9px;
-  border-bottom:1px solid var(--line);
 }
 
-td{
-  padding:10px 9px;
-  border-bottom:1px solid var(--line);
-  font-size:9px;
-}
-
-/* ================= ALERT ================= */
-
-.alert{
-  padding:11px 12px;
-  border-radius:11px;
-  font-size:9px;
-  line-height:1.5;
-  border:1px solid var(--line);
-}
-
-.alert-green{
+.win{
   color:var(--green);
-  background:rgba(85,230,165,.06);
+  font-weight:900;
 }
 
-.alert-yellow{
-  color:var(--yellow);
-  background:rgba(245,201,105,.06);
-}
-
-.alert-red{
+.loss{
   color:var(--red);
-  background:rgba(255,113,135,.06);
+  font-weight:900;
 }
 
-/* ================= RESPONSIVE ================= */
+.manual{
+  padding:12px;
+}
 
-@media(min-width:600px){
-  main{
+.manual-box{
+  padding:12px;
+  background:#0a151e;
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.7;
+}
+
+.statusbar{
+  position:fixed;
+  left:10px;
+  right:10px;
+  bottom:10px;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 12px;
+  background:rgba(10,21,30,.95);
+  border:1px solid var(--border);
+  border-radius:14px;
+  backdrop-filter:blur(15px);
+  box-shadow:0 8px 30px rgba(0,0,0,.4);
+}
+
+.status-text{
+  font-size:9px;
+  color:var(--muted);
+}
+
+.status-api{
+  font-size:9px;
+  font-weight:900;
+}
+
+.ok{
+  color:var(--green);
+}
+
+.bad{
+  color:var(--red);
+}
+
+.warn{
+  color:var(--yellow);
+}
+
+.empty{
+  padding:22px;
+  text-align:center;
+  color:var(--muted);
+  font-size:10px;
+}
+
+@media(max-width:700px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .levels{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  #tradingview_chart{
+    height:470px;
+  }
+}
+
+@media(min-width:900px){
+  .container{
     padding:18px;
   }
 
-  .grid4{
-    grid-template-columns:repeat(4,1fr);
+  #tradingview_chart{
+    height:620px;
   }
 }
 </style>
@@ -899,506 +486,251 @@ td{
 
 <body>
 
-<div class="app">
-
 <header class="header">
-  <div class="header-inner">
+  <div class="header-row">
     <div class="brand">
-      <div class="logo">F1M</div>
-      <div>
-        <div class="brand-title">FASIM 1M PRO</div>
-        <div class="brand-sub">Smart Trading Execution System</div>
-      </div>
+      FASIM 1M
+      <small>XAUUSD • SMC LOGIC PRO v3.2</small>
     </div>
 
-    <div class="status-pill" id="connectionStatus">
-      <span class="dot"></span>
-      <span>DEMO</span>
+    <div class="connection">
+      <span class="dot" id="connectionDot"></span>
+      <span id="connectionText">CONNECTING</span>
     </div>
   </div>
 </header>
 
-<main>
+<main class="container">
 
-<!-- =========================================================
-     HOME
-========================================================= -->
+  <!-- PRICE -->
+  <section class="card price-card">
+    <div class="price-label">XAUUSD / TRADINGVIEW</div>
+    <div class="price" id="price">—</div>
+    <div class="price-time" id="priceTime">Menunggu signal TradingView...</div>
+  </section>
 
-<section id="screen-home" class="screen active">
+  <!-- TRADINGVIEW -->
+  <section class="card tv-wrap">
 
-  <div class="asset-switch">
-    <button class="asset-btn active" data-asset="XAUUSD">XAUUSD</button>
-    <button class="asset-btn" data-asset="BTCUSD">BTCUSD</button>
-  </div>
+    <div class="tv-toolbar">
+      <button class="tf active" onclick="setTF('1')">M1</button>
+      <button class="tf" onclick="setTF('5')">M5</button>
+      <button class="tf" onclick="setTF('15')">M15</button>
+      <button class="tf" onclick="setTF('60')">H1</button>
+    </div>
 
-  <div class="card hero">
-    <div class="hero-top">
+    <div id="tradingview_chart"></div>
 
+  </section>
+
+  <!-- DASHBOARD -->
+  <section class="card">
+
+    <div class="card-head">
       <div>
-        <div class="symbol" id="heroSymbol">XAUUSD · EXNESS</div>
-        <div class="price" id="heroPrice">2,650.20</div>
-        <div class="change green" id="heroChange">+0.42%</div>
+        <div class="card-title">SMC LIVE DASHBOARD</div>
+        <div class="card-sub">SOURCE: TRADINGVIEW PINE</div>
+      </div>
+    </div>
+
+    <div class="grid">
+
+      <div class="metric">
+        <div class="metric-label">Market</div>
+        <div class="metric-value" id="mMarket">XAUUSD</div>
       </div>
 
-      <div class="signal-box">
-        <div class="signal green" id="heroSignal">BUY</div>
-        <div class="signal-meta">CONFIRMED SIGNAL</div>
+      <div class="metric">
+        <div class="metric-label">Feed</div>
+        <div class="metric-value" id="mFeed">WAITING</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">H1</div>
+        <div class="metric-value" id="mHTF">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Structure</div>
+        <div class="metric-value" id="mStructure">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Zone</div>
+        <div class="metric-value" id="mZone">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Score</div>
+        <div class="metric-value" id="mScore">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Volume</div>
+        <div class="metric-value" id="mVolume">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Position</div>
+        <div class="metric-value" id="mPosition">FLAT</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Liquidity</div>
+        <div class="metric-value" id="mLiquidity">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Premium / Discount</div>
+        <div class="metric-value" id="mPD">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Signal Time</div>
+        <div class="metric-value" id="mSignalTime">—</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">API</div>
+        <div class="metric-value" id="mAPI">—</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SIGNAL -->
+  <section class="card">
+
+    <div class="card-head">
+      <div>
+        <div class="card-title">TRADING SIGNAL</div>
+        <div class="card-sub">PINE v3.2 → VERCEL</div>
+      </div>
+    </div>
+
+    <div class="signal neutral" id="signalBox">
+
+      <div class="signal-type" id="signalType">
+        WAITING FOR TRADINGVIEW
+      </div>
+
+      <div class="signal-main" id="signalMain">
+        NO SIGNAL
+      </div>
+
+      <div class="signal-meta" id="signalMeta">
+        Signal akan muncul setelah webhook TradingView diterima.
       </div>
 
     </div>
 
-    <div class="score">
-      <div class="score-ring">
-        <div class="score-number" id="scoreValue">8.7</div>
+  </section>
+
+  <!-- LEVELS -->
+  <section class="card">
+
+    <div class="card-head">
+      <div>
+        <div class="card-title">TRADE LEVELS</div>
+        <div class="card-sub">FROM PINE STRATEGY</div>
+      </div>
+    </div>
+
+    <div class="levels">
+
+      <div class="level entry">
+        <div class="level-name">ENTRY</div>
+        <div class="level-value" id="entry">—</div>
       </div>
 
-      <div class="score-info">
-        <div class="score-title">QUALITY SCORE</div>
-        <div class="score-desc" id="scoreDesc">
-          HTF bullish · BOS confirmed · FVG retest · liquidity sweep
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div style="height:10px"></div>
-
-  <div class="card chart-card">
-
-    <div class="chart">
-
-      <div class="zone zone-supply">
-        <span class="zone-label" style="color:var(--red)">
-          SUPPLY
-        </span>
+      <div class="level sl">
+        <div class="level-name">STOP LOSS</div>
+        <div class="level-value" id="sl">—</div>
       </div>
 
-      <div class="zone zone-demand">
-        <span class="zone-label" style="color:var(--green)">
-          DEMAND
-        </span>
+      <div class="level tp">
+        <div class="level-name">TP1 • 33%</div>
+        <div class="level-value" id="tp1">—</div>
       </div>
 
-      <div class="zone fvg">
-        <span class="zone-label" style="color:var(--blue)">
-          FVG
-        </span>
+      <div class="level tp">
+        <div class="level-name">TP2 • 33%</div>
+        <div class="level-value" id="tp2">—</div>
       </div>
 
-      <div class="entry-line"></div>
-      <div class="sl-line"></div>
-      <div class="tp-line"></div>
-
-      <div class="chart-tag tag-entry">ENTRY</div>
-      <div class="chart-tag tag-sl">SL</div>
-      <div class="chart-tag tag-tp">TP2</div>
-
-      <svg viewBox="0 0 700 270"
-           preserveAspectRatio="none">
-
-        <polyline
-          points="
-          0,210
-          35,196
-          65,205
-          98,175
-          130,184
-          162,145
-          190,160
-          225,132
-          255,145
-          290,116
-          325,126
-          355,92
-          390,105
-          420,82
-          450,96
-          480,65
-          510,78
-          540,54
-          570,67
-          600,43
-          630,57
-          660,34
-          700,46"
-          fill="none"
-          stroke="#55e6a5"
-          stroke-width="2.4"
-          vector-effect="non-scaling-stroke"/>
-      </svg>
-
-    </div>
-
-    <div class="chart-footer">
-      <button class="tf">1M</button>
-      <button class="tf">5M</button>
-      <button class="tf active">15M</button>
-      <button class="tf">1H</button>
-      <button class="tf">4H</button>
-      <button class="tf">1D</button>
-    </div>
-
-  </div>
-
-  <div style="height:10px"></div>
-
-  <div class="section-title">
-    <h2>Multi Timeframe</h2>
-    <span>Trend alignment</span>
-  </div>
-
-  <div class="mtf">
-
-    <div class="mtf-card">
-      <div class="mtf-name">H1</div>
-      <div class="mtf-value green">BULLISH</div>
-      <div class="mtf-state green">EMA + STRUCTURE</div>
-    </div>
-
-    <div class="mtf-card">
-      <div class="mtf-name">M15</div>
-      <div class="mtf-value green">BULLISH</div>
-      <div class="mtf-state green">BOS CONFIRMED</div>
-    </div>
-
-    <div class="mtf-card">
-      <div class="mtf-name">M5</div>
-      <div class="mtf-value yellow">WAIT</div>
-      <div class="mtf-state yellow">RETEST</div>
-    </div>
-
-  </div>
-
-  <div style="height:10px"></div>
-
-  <div class="section-title">
-    <h2>Signal Levels</h2>
-    <span>Execution plan</span>
-  </div>
-
-  <div class="card card-pad">
-
-    <div class="trade-level">
-
-      <div class="level">
-        <small>ENTRY</small>
-        <strong id="entryPrice">2650.20</strong>
+      <div class="level tp">
+        <div class="level-name">TP3 • REMAINING</div>
+        <div class="level-value" id="tp3">—</div>
       </div>
 
       <div class="level">
-        <small>SL</small>
-        <strong class="red" id="slPrice">2642.40</strong>
-      </div>
-
-      <div class="level">
-        <small>TP1</small>
-        <strong class="green" id="tp1Price">2659.60</strong>
-      </div>
-
-      <div class="level">
-        <small>TP2</small>
-        <strong class="blue" id="tp2Price">2667.30</strong>
+        <div class="level-name">RR TP2</div>
+        <div class="level-value" id="rr">—</div>
       </div>
 
     </div>
+  </section>
 
-    <div class="trade-actions">
-      <button class="btn btn-green" onclick="manualAction('BUY')">
-        BUY
-      </button>
+  <!-- ZONES -->
+  <section class="card">
 
-      <button class="btn btn-red" onclick="manualAction('SELL')">
-        SELL
-      </button>
-    </div>
-
-  </div>
-
-  <div style="height:10px"></div>
-
-  <div class="grid grid2">
-
-    <div class="card metric">
-      <div class="metric-label">Balance</div>
-      <div class="metric-value" id="balance">$503.00</div>
-    </div>
-
-    <div class="card metric">
-      <div class="metric-label">Equity</div>
-      <div class="metric-value" id="equity">$511.40</div>
-    </div>
-
-    <div class="card metric">
-      <div class="metric-label">Floating P/L</div>
-      <div class="metric-value green" id="floating">$8.40</div>
-    </div>
-
-    <div class="card metric">
-      <div class="metric-label">Today P/L</div>
-      <div class="metric-value green" id="todayPL">+$18.70</div>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     CHART
-========================================================= -->
-
-<section id="screen-chart" class="screen">
-
-  <div class="section-title">
-    <h2>Market Structure</h2>
-    <span id="chartAsset">XAUUSD</span>
-  </div>
-
-  <div class="card chart-card">
-
-    <div class="chart" style="height:420px">
-
-      <div class="zone zone-supply">
-        <span class="zone-label" style="color:var(--red)">
-          SUPPLY · 9.1
-        </span>
+    <div class="card-head">
+      <div>
+        <div class="card-title">ACTIVE SMC ZONES</div>
+        <div class="card-sub">ONLY DATA RECEIVED FROM PINE</div>
       </div>
-
-      <div class="zone zone-demand">
-        <span class="zone-label" style="color:var(--green)">
-          DEMAND · 8.8
-        </span>
-      </div>
-
-      <div class="zone fvg">
-        <span class="zone-label" style="color:var(--blue)">
-          FVG BULL · 8.4
-        </span>
-      </div>
-
-      <div style="
-        position:absolute;
-        left:0;
-        right:0;
-        top:47%;
-        border-top:1px solid rgba(173,140,255,.7);
-      "></div>
-
-      <div style="
-        position:absolute;
-        right:7px;
-        top:calc(47% - 10px);
-        color:var(--purple);
-        background:#0b1119;
-        border:1px solid var(--line);
-        border-radius:5px;
-        padding:4px 7px;
-        font-size:8px;
-        font-weight:900;
-      ">RESISTANCE</div>
-
-      <svg viewBox="0 0 700 420"
-           preserveAspectRatio="none">
-
-        <polyline
-          points="
-          0,340
-          35,318
-          65,330
-          95,295
-          125,310
-          155,270
-          185,290
-          220,245
-          250,263
-          280,215
-          315,238
-          345,190
-          380,208
-          410,168
-          440,190
-          470,142
-          500,164
-          530,120
-          560,145
-          595,105
-          630,122
-          660,85
-          700,101"
-          fill="none"
-          stroke="#62b8ff"
-          stroke-width="2.5"
-          vector-effect="non-scaling-stroke"/>
-
-      </svg>
-
     </div>
 
-    <div class="chart-footer">
-      <button class="tf">1M</button>
-      <button class="tf active">5M</button>
-      <button class="tf">15M</button>
-      <button class="tf">1H</button>
-      <button class="tf">4H</button>
-    </div>
+    <div class="zones" id="zones">
 
-  </div>
-
-  <div style="height:10px"></div>
-
-  <div class="grid grid2">
-
-    <div class="card metric">
-      <div class="metric-label">BOS</div>
-      <div class="metric-value green">BULLISH</div>
-    </div>
-
-    <div class="card metric">
-      <div class="metric-label">CHoCH</div>
-      <div class="metric-value yellow">WATCH</div>
-    </div>
-
-    <div class="card metric">
-      <div class="metric-label">Liquidity</div>
-      <div class="metric-value blue">SWEEP</div>
-    </div>
-
-    <div class="card metric">
-      <div class="metric-label">Bias</div>
-      <div class="metric-value green">BUY</div>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     TRADES
-========================================================= -->
-
-<section id="screen-trades" class="screen">
-
-  <div class="section-title">
-    <h2>Open Positions</h2>
-    <span id="positionCount">1 position</span>
-  </div>
-
-  <div class="card card-pad">
-
-    <div class="list">
-
-      <div class="list-item">
-
-        <div class="list-left">
-          <div class="list-title">
-            XAUUSD · BUY
-          </div>
-          <div class="list-sub">
-            0.01 lot · Market · M5
-          </div>
-        </div>
-
-        <div class="list-right">
-          <div class="list-price green">+$8.40</div>
-          <div class="list-sub">+84 points</div>
-        </div>
-
+      <div class="empty">
+        Menunggu data zone dari TradingView Pine.
       </div>
 
     </div>
 
-    <div class="trade-level">
+  </section>
 
-      <div class="level">
-        <small>ENTRY</small>
-        <strong>2650.20</strong>
+  <!-- HISTORY -->
+  <section class="card">
+
+    <div class="card-head">
+      <div>
+        <div class="card-title">SIGNAL HISTORY</div>
+        <div class="card-sub">CLOSED TRADES</div>
+      </div>
+    </div>
+
+    <div class="grid">
+
+      <div class="metric">
+        <div class="metric-label">Closed</div>
+        <div class="metric-value" id="hClosed">0</div>
       </div>
 
-      <div class="level">
-        <small>SL</small>
-        <strong class="red">2642.40</strong>
+      <div class="metric">
+        <div class="metric-label">Win</div>
+        <div class="metric-value" id="hWin">0</div>
       </div>
 
-      <div class="level">
-        <small>TP1</small>
-        <strong class="green">2659.60</strong>
+      <div class="metric">
+        <div class="metric-label">Loss</div>
+        <div class="metric-value" id="hLoss">0</div>
       </div>
 
-      <div class="level">
-        <small>TP2</small>
-        <strong class="blue">2667.30</strong>
+      <div class="metric">
+        <div class="metric-label">Win Rate</div>
+        <div class="metric-value" id="hRate">0%</div>
+      </div>
+
+      <div class="metric">
+        <div class="metric-label">Net R</div>
+        <div class="metric-value" id="hR">0 R</div>
       </div>
 
     </div>
 
-    <div class="trade-actions">
-
-      <button class="btn btn-blue"
-              onclick="modifyPosition()">
-        MODIFY
-      </button>
-
-      <button class="btn btn-red"
-              onclick="closePosition()">
-        CLOSE
-      </button>
-
-    </div>
-
-  </div>
-
-  <div style="height:14px"></div>
-
-  <div class="section-title">
-    <h2>Pending Orders</h2>
-    <span>Execution queue</span>
-  </div>
-
-  <div class="card card-pad">
-
-    <div class="list">
-
-      <div class="list-item">
-
-        <div class="list-left">
-          <div class="list-title">BUY LIMIT · XAUUSD</div>
-          <div class="list-sub">2648.20 · 0.01 lot</div>
-        </div>
-
-        <div class="list-right">
-          <span class="badge badge-blue">WAITING</span>
-        </div>
-
-      </div>
-
-      <div class="list-item">
-
-        <div class="list-left">
-          <div class="list-title">SELL LIMIT · XAUUSD</div>
-          <div class="list-sub">2669.80 · 0.01 lot</div>
-        </div>
-
-        <div class="list-right">
-          <span class="badge badge-yellow">ARMED</span>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <div style="height:14px"></div>
-
-  <div class="section-title">
-    <h2>Trade History</h2>
-    <span>Today</span>
-  </div>
-
-  <div class="card card-pad">
-
-    <div class="table-wrap">
+    <div class="history-wrap">
 
       <table>
 
@@ -1407,35 +739,19 @@ td{
             <th>TIME</th>
             <th>SYMBOL</th>
             <th>SIDE</th>
+            <th>TYPE</th>
             <th>RESULT</th>
-            <th>P/L</th>
+            <th>R</th>
+            <th>REASON</th>
           </tr>
         </thead>
 
-        <tbody>
+        <tbody id="historyBody">
 
           <tr>
-            <td>09:41</td>
-            <td>XAUUSD</td>
-            <td class="green">BUY</td>
-            <td><span class="badge badge-green">WIN</span></td>
-            <td class="green">+$11.20</td>
-          </tr>
-
-          <tr>
-            <td>08:53</td>
-            <td>XAUUSD</td>
-            <td class="red">SELL</td>
-            <td><span class="badge badge-red">LOSS</span></td>
-            <td class="red">-$4.60</td>
-          </tr>
-
-          <tr>
-            <td>08:11</td>
-            <td>BTCUSD</td>
-            <td class="green">BUY</td>
-            <td><span class="badge badge-green">WIN</span></td>
-            <td class="green">+$12.10</td>
+            <td colspan="7" class="empty">
+              Belum ada trade closed.
+            </td>
           </tr>
 
         </tbody>
@@ -1444,1409 +760,821 @@ td{
 
     </div>
 
+  </section>
+
+  <!-- MANUAL -->
+  <section class="card">
+
+    <div class="card-head">
+      <div>
+        <div class="card-title">MANUAL EXECUTION</div>
+        <div class="card-sub">MT5</div>
+      </div>
+    </div>
+
+    <div class="manual">
+
+      <div class="manual-box">
+
+        <b>Workflow:</b><br>
+
+        1. Signal berasal dari TradingView Pine.<br>
+        2. FASIM menerima signal melalui Vercel webhook.<br>
+        3. Periksa Entry / SL / TP di dashboard.<br>
+        4. Eksekusi manual di MT5.<br>
+        5. Jangan membuka posisi tambahan jika Pine tidak memberikan signal baru.<br><br>
+
+        <b>Catatan:</b><br>
+
+        FASIM 1M tidak mengambil harga dari API market terpisah.
+        TradingView tetap menjadi sumber strategi dan chart.
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<div class="statusbar">
+
+  <div class="status-text" id="lastUpdate">
+    Last update: —
   </div>
 
-</section>
+  <div class="status-api" id="apiStatus">
+    API: CHECKING
+  </div>
+
+</div>
+
+<script src="https://s3.tradingview.com/tv.js"></script>
+
+<script>
+
+/* ============================================================
+   FASIM 1M
+   TRADINGVIEW → VERCEL SIGNAL RECEIVER
+   ============================================================ */
+
+const API_URL = "/api/signal";
+
+let currentTF = "1";
+let tvWidget = null;
+let lastState = null;
 
 
-<!-- =========================================================
-     BOT
-========================================================= -->
+/* ============================================================
+   TRADINGVIEW
+   ============================================================ */
 
-<section id="screen-bot" class="screen">
+function loadTradingView(tf = "1") {
 
-  <div class="card card-pad">
+  currentTF = tf;
 
-    <div class="bot-status">
+  const container = document.getElementById("tradingview_chart");
 
-      <div class="bot-state">
+  container.innerHTML = "";
 
-        <div class="bot-circle">⚡</div>
+  if (!window.TradingView) {
+    container.innerHTML =
+      '<div class="empty">TradingView library belum tersedia.</div>';
+    return;
+  }
+
+  tvWidget = new TradingView.widget({
+
+    autosize: true,
+
+    symbol: "OANDA:XAUUSD",
+
+    interval: tf,
+
+    timezone: "Asia/Jakarta",
+
+    theme: "dark",
+
+    style: "1",
+
+    locale: "id",
+
+    enable_publishing: false,
+
+    hide_top_toolbar: false,
+
+    hide_legend: false,
+
+    allow_symbol_change: false,
+
+    save_image: false,
+
+    container_id: "tradingview_chart"
+
+  });
+
+}
+
+
+function setTF(tf) {
+
+  currentTF = tf;
+
+  document.querySelectorAll(".tf").forEach(btn => {
+
+    btn.classList.remove("active");
+
+  });
+
+  const map = {
+    "1":0,
+    "5":1,
+    "15":2,
+    "60":3
+  };
+
+  const buttons = document.querySelectorAll(".tf");
+
+  if (buttons[map[tf]]) {
+    buttons[map[tf]].classList.add("active");
+  }
+
+  loadTradingView(tf);
+}
+
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+
+function esc(value) {
+
+  if (value === null || value === undefined) {
+    return "";
+  }
+
+  return String(value)
+
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function num(value, digits = 2) {
+
+  if (
+    value === null ||
+    value === undefined ||
+    value === "" ||
+    Number.isNaN(Number(value))
+  ) {
+    return "—";
+  }
+
+  return Number(value).toFixed(digits);
+
+}
+
+
+function fmtTime(value) {
+
+  if (!value) {
+    return "—";
+  }
+
+  const d = new Date(value);
+
+  if (Number.isNaN(d.getTime())) {
+    return String(value);
+  }
+
+  return d.toLocaleString("id-ID", {
+    timeZone:"Asia/Jakarta",
+    day:"2-digit",
+    month:"2-digit",
+    year:"numeric",
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit"
+  });
+
+}
+
+
+function getSignalSide(signal) {
+
+  if (!signal) {
+    return "";
+  }
+
+  const side = String(
+    signal.side ||
+    signal.action ||
+    ""
+  ).toUpperCase();
+
+  return side.includes("BUY")
+    ? "BUY"
+    : side.includes("SELL")
+      ? "SELL"
+      : "";
+}
+
+
+function getSignalType(signal) {
+
+  if (!signal) {
+    return "WAITING";
+  }
+
+  let type = String(
+    signal.type ||
+    signal.orderType ||
+    ""
+  ).toUpperCase();
+
+  const side = getSignalSide(signal);
+
+  if (
+    type === "LIMIT" ||
+    type === "STOP"
+  ) {
+    return `${side} ${type}`;
+  }
+
+  if (
+    type === "BUY LIMIT" ||
+    type === "SELL LIMIT" ||
+    type === "BUY STOP" ||
+    type === "SELL STOP"
+  ) {
+    return type;
+  }
+
+  if (type === "CONFIRMED") {
+    return `${side} CONFIRMED`;
+  }
+
+  if (type === "EARLY") {
+    return `${side} EARLY`;
+  }
+
+  if (type === "RETEST") {
+    return `${side} RETEST`;
+  }
+
+  return type || side || "SIGNAL";
+}
+
+
+/* ============================================================
+   CONNECTION
+   ============================================================ */
+
+function setConnection(status) {
+
+  const dot = document.getElementById("connectionDot");
+  const text = document.getElementById("connectionText");
+
+  dot.classList.remove("online","offline");
+
+  if (status === "online") {
+
+    dot.classList.add("online");
+    text.textContent = "ONLINE";
+
+  } else if (status === "offline") {
+
+    dot.classList.add("offline");
+    text.textContent = "OFFLINE";
+
+  } else {
+
+    text.textContent = "CONNECTING";
+
+  }
+
+}
+
+
+/* ============================================================
+   DASHBOARD
+   ============================================================ */
+
+function renderDashboard(state) {
+
+  const signal = state?.signal || state?.lastSignal || {};
+
+  document.getElementById("mMarket").textContent =
+    signal.symbol || state.symbol || "XAUUSD";
+
+  document.getElementById("mFeed").textContent =
+    state.signal ? "LIVE" : "WAITING";
+
+  document.getElementById("mHTF").textContent =
+    signal.htf || signal.htfTrend || "—";
+
+  document.getElementById("mStructure").textContent =
+    signal.structure || "—";
+
+  document.getElementById("mZone").textContent =
+    signal.zone || "—";
+
+  document.getElementById("mScore").textContent =
+    signal.score !== undefined
+      ? num(signal.score,2)
+      : "—";
+
+  document.getElementById("mVolume").textContent =
+    signal.volume || "—";
+
+  document.getElementById("mPosition").textContent =
+    state.position ||
+    signal.position ||
+    "FLAT";
+
+  document.getElementById("mLiquidity").textContent =
+    signal.liquidity || "—";
+
+  document.getElementById("mPD").textContent =
+    signal.pd ||
+    signal.premiumDiscount ||
+    "—";
+
+  document.getElementById("mSignalTime").textContent =
+    fmtTime(signal.time || state.updatedAt);
+
+  document.getElementById("mAPI").textContent =
+    "ONLINE";
+
+}
+
+
+/* ============================================================
+   SIGNAL
+   ============================================================ */
+
+function renderSignal(state) {
+
+  const signal =
+    state?.signal ||
+    state?.lastSignal ||
+    null;
+
+  const box = document.getElementById("signalBox");
+
+  box.classList.remove("buy","sell","neutral");
+
+  if (!signal) {
+
+    box.classList.add("neutral");
+
+    document.getElementById("signalType").textContent =
+      "WAITING FOR TRADINGVIEW";
+
+    document.getElementById("signalMain").textContent =
+      "NO SIGNAL";
+
+    document.getElementById("signalMeta").textContent =
+      "Belum ada signal yang diterima.";
+
+    return;
+  }
+
+  const side = getSignalSide(signal);
+
+  if (side === "BUY") {
+
+    box.classList.add("buy");
+
+  } else if (side === "SELL") {
+
+    box.classList.add("sell");
+
+  } else {
+
+    box.classList.add("neutral");
+
+  }
+
+  document.getElementById("signalType").textContent =
+    getSignalType(signal);
+
+  document.getElementById("signalMain").textContent =
+    side || "SIGNAL";
+
+  const score =
+    signal.score !== undefined
+      ? `Score ${num(signal.score,2)}`
+      : "Score —";
+
+  const reason =
+    signal.reason ||
+    signal.message ||
+    "TradingView Pine v3.2";
+
+  document.getElementById("signalMeta").textContent =
+    `${score} • ${reason} • ${fmtTime(signal.time || state.updatedAt)}`;
+
+}
+
+
+/* ============================================================
+   LEVELS
+   ============================================================ */
+
+function renderLevels(state) {
+
+  const signal =
+    state?.signal ||
+    state?.lastSignal ||
+    {};
+
+  document.getElementById("price").textContent =
+    num(
+      signal.price ??
+      signal.close ??
+      signal.entry,
+      2
+    );
+
+  document.getElementById("entry").textContent =
+    num(signal.entry,2);
+
+  document.getElementById("sl").textContent =
+    num(signal.sl ?? signal.stopLoss,2);
+
+  document.getElementById("tp1").textContent =
+    num(signal.tp1,2);
+
+  document.getElementById("tp2").textContent =
+    num(signal.tp2,2);
+
+  document.getElementById("tp3").textContent =
+    num(signal.tp3,2);
+
+  document.getElementById("rr").textContent =
+    signal.rr2 !== undefined
+      ? `${num(signal.rr2,2)} R`
+      : "—";
+
+  document.getElementById("priceTime").textContent =
+    signal.time
+      ? `Signal price • ${fmtTime(signal.time)}`
+      : "Menunggu signal TradingView...";
+
+}
+
+
+/* ============================================================
+   ZONES
+   ============================================================ */
+
+function renderZones(state) {
+
+  const wrap = document.getElementById("zones");
+
+  const zones =
+    state?.zones ||
+    state?.signal?.zones ||
+    [];
+
+  if (!Array.isArray(zones) || zones.length === 0) {
+
+    wrap.innerHTML = `
+      <div class="empty">
+        Belum ada zone yang dikirim Pine.
+      </div>
+    `;
+
+    return;
+  }
+
+  wrap.innerHTML = zones.map((z) => {
+
+    const type =
+      String(
+        z.type ||
+        z.name ||
+        "ZONE"
+      ).toUpperCase();
+
+    let cls = "";
+
+    if (type.includes("DEMAND") || type.includes("BULL")) {
+      cls = type.includes("FVG")
+        ? "fvg-bull"
+        : "demand";
+    }
+
+    if (type.includes("SUPPLY") || type.includes("BEAR")) {
+      cls = type.includes("FVG")
+        ? "fvg-bear"
+        : "supply";
+    }
+
+    const top =
+      z.top !== undefined
+        ? num(z.top,2)
+        : "—";
+
+    const bottom =
+      z.bottom !== undefined
+        ? num(z.bottom,2)
+        : "—";
+
+    const score =
+      z.score !== undefined
+        ? `Score ${num(z.score,2)}`
+        : "";
+
+    const stateText =
+      z.fresh !== undefined
+        ? (z.fresh ? "FRESH" : "TESTED")
+        : (z.status || "");
+
+    return `
+
+      <div class="zone ${cls}">
 
         <div>
-          <div class="bot-title" id="botTitle">
-            BOT RUNNING
+          <div class="zone-name">
+            ${esc(type)}
           </div>
 
-          <div class="bot-sub" id="botSubtitle">
-            FASIM 1M execution engine active
+          <div class="card-sub">
+            ${esc(stateText)} ${esc(score)}
           </div>
+        </div>
+
+        <div class="zone-price">
+          ${bottom} — ${top}
         </div>
 
       </div>
 
-      <button
-        id="botSwitch"
-        class="switch on"
-        onclick="toggleBot()">
-        <i></i>
-      </button>
+    `;
 
-    </div>
-
-  </div>
-
-  <div style="height:10px"></div>
-
-  <div class="section-title">
-    <h2>Strategy Engine</h2>
-    <span>FASIM SMC</span>
-  </div>
-
-  <div class="grid grid2">
-
-    <div class="card metric">
-      <div class="metric-label">HTF Trend</div>
-      <div class="metric-value green">ACTIVE</div>
-    </div>
-
-    <div class="card metric">
-      <div class="metric-label">BOS / CHoCH</div>
-      <div class="metric-value green">ACTIVE</div>
-    </div>
-
-    <div class="card metric">
-      <div class="metric-label">Liquidity</div>
-      <div class="metric-value green">ACTIVE</div>
-    </div>
-
-    <div class="card metric">
-      <div class="metric-label">OB / FVG</div>
-      <div class="metric-value green">ACTIVE</div>
-    </div>
-
-    <div class="card metric">
-      <div class="metric-label">Quality Score</div>
-      <div class="metric-value blue">≥ 7.0</div>
-    </div>
-
-    <div class="card metric">
-      <div class="metric-label">Cooldown</div>
-      <div class="metric-value yellow">5 BAR</div>
-    </div>
-
-  </div>
-
-  <div style="height:14px"></div>
-
-  <div class="section-title">
-    <h2>Execution</h2>
-    <span>Risk controlled</span>
-  </div>
-
-  <div class="card card-pad">
-
-    <div class="health">
-
-      <div class="health-row">
-        <span class="health-name">Market Entry</span>
-        <span class="health-status green">ON</span>
-      </div>
-
-      <div class="health-row">
-        <span class="health-name">Buy / Sell Limit</span>
-        <span class="health-status green">ON</span>
-      </div>
-
-      <div class="health-row">
-        <span class="health-name">Buy / Sell Stop</span>
-        <span class="health-status green">ON</span>
-      </div>
-
-      <div class="health-row">
-        <span class="health-name">Partial TP</span>
-        <span class="health-status green">33 / 33 / 34</span>
-      </div>
-
-      <div class="health-row">
-        <span class="health-name">Break Even</span>
-        <span class="health-status green">TP1</span>
-      </div>
-
-      <div class="health-row">
-        <span class="health-name">Trailing Stop</span>
-        <span class="health-status green">ACTIVE</span>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div style="height:14px"></div>
-
-  <button
-    class="btn btn-red"
-    style="width:100%;height:48px"
-    onclick="emergencyStop()">
-    ⛔ EMERGENCY STOP
-  </button>
-
-  <div style="height:12px"></div>
-
-  <div class="alert alert-yellow">
-    Emergency Stop akan menghentikan engine baru dan
-    membatalkan pending order. Posisi terbuka tidak boleh
-    otomatis ditutup tanpa konfirmasi backend.
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     SETTINGS
-========================================================= -->
-
-<section id="screen-settings" class="screen">
-
-  <div class="section-title">
-    <h2>Risk Management</h2>
-    <span>Account protection</span>
-  </div>
-
-  <div class="card card-pad">
-
-    <div class="field">
-      <label>Risk Per Trade (%)</label>
-      <input id="riskTrade"
-             type="number"
-             value="1"
-             min="0.1"
-             max="5"
-             step="0.1">
-    </div>
-
-    <div class="field">
-      <label>Max Daily Loss (%)</label>
-      <input id="maxDailyLoss"
-             type="number"
-             value="3"
-             min="0.5"
-             max="20"
-             step="0.5">
-    </div>
-
-    <div class="field">
-      <label>Max Trades / Day</label>
-      <input id="maxTrades"
-             type="number"
-             value="5"
-             min="1"
-             max="50">
-    </div>
-
-    <div class="field">
-      <label>Max Spread</label>
-      <input id="maxSpread"
-             type="number"
-             value="35"
-             min="1"
-             max="500">
-    </div>
-
-    <button class="btn btn-green"
-            style="width:100%"
-            onclick="saveRisk()">
-      SAVE RISK SETTINGS
-    </button>
-
-  </div>
-
-  <div style="height:14px"></div>
-
-  <div class="section-title">
-    <h2>Strategy Settings</h2>
-    <span>FASIM SMC</span>
-  </div>
-
-  <div class="card card-pad">
-
-    <div class="field">
-      <label>Minimum Quality Score</label>
-      <input id="minScore"
-             type="number"
-             value="7"
-             min="1"
-             max="10"
-             step=".1">
-    </div>
-
-    <div class="field">
-      <label>SL ATR Multiplier</label>
-      <input id="slAtr"
-             type="number"
-             value="1.2"
-             min=".1"
-             max="5"
-             step=".1">
-    </div>
-
-    <div class="field">
-      <label>TP1 RR</label>
-      <input id="tp1RR"
-             type="number"
-             value="1.2"
-             min=".5"
-             max="10"
-             step=".1">
-    </div>
-
-    <div class="field">
-      <label>TP2 RR</label>
-      <input id="tp2RR"
-             type="number"
-             value="2.2"
-             min=".5"
-             max="20"
-             step=".1">
-    </div>
-
-    <div class="field">
-      <label>TP3 RR</label>
-      <input id="tp3RR"
-             type="number"
-             value="3.2"
-             min=".5"
-             max="30"
-             step=".1">
-    </div>
-
-    <button class="btn btn-blue"
-            style="width:100%"
-            onclick="saveStrategy()">
-      SAVE STRATEGY
-    </button>
-
-  </div>
-
-  <div style="height:14px"></div>
-
-  <div class="section-title">
-    <h2>System Health</h2>
-    <span>Monitoring</span>
-  </div>
-
-  <div class="card card-pad">
-
-    <div class="health">
-
-      <div class="health-row">
-        <span class="health-name">FASIM API</span>
-        <span class="health-status yellow" id="apiHealth">
-          DEMO
-        </span>
-      </div>
-
-      <div class="health-row">
-        <span class="health-name">MT5 Bridge</span>
-        <span class="health-status yellow">
-          DEMO
-        </span>
-      </div>
-
-      <div class="health-row">
-        <span class="health-name">Exness</span>
-        <span class="health-status yellow">
-          NOT CONNECTED
-        </span>
-      </div>
-
-      <div class="health-row">
-        <span class="health-name">Market Feed</span>
-        <span class="health-status green">
-          SIMULATED
-        </span>
-      </div>
-
-    </div>
-
-  </div>
-
-  <div style="height:14px"></div>
-
-  <div class="card card-pad">
-
-    <div class="alert alert-red">
-      Jangan masukkan password MT5, password Exness,
-      API secret, atau credential broker ke file frontend.
-      Credential harus berada di backend/bridge yang aman.
-    </div>
-
-  </div>
-
-  <div style="height:14px"></div>
-
-  <button class="btn"
-          style="width:100%"
-          onclick="installPWA()">
-    ＋ INSTALL FASIM 1M
-  </button>
-
-</section>
-
-
-</main>
-
-
-<!-- =========================================================
-     BOTTOM NAV
-========================================================= -->
-
-<nav class="bottom-nav">
-
-  <button class="nav-btn active"
-          data-screen="home"
-          onclick="openScreen('home',this)">
-    <div class="nav-icon">⌂</div>
-    HOME
-  </button>
-
-  <button class="nav-btn"
-          data-screen="chart"
-          onclick="openScreen('chart',this)">
-    <div class="nav-icon">◈</div>
-    CHART
-  </button>
-
-  <button class="nav-btn"
-          data-screen="trades"
-          onclick="openScreen('trades',this)">
-    <div class="nav-icon">▤</div>
-    TRADES
-  </button>
-
-  <button class="nav-btn"
-          data-screen="bot"
-          onclick="openScreen('bot',this)">
-    <div class="nav-icon">⚡</div>
-    BOT
-  </button>
-
-  <button class="nav-btn"
-          data-screen="settings"
-          onclick="openScreen('settings',this)">
-    <div class="nav-icon">⚙</div>
-    SETTINGS
-  </button>
-
-</nav>
-
-<div class="toast" id="toast"></div>
-
-</div>
-
-
-<script>
-
-/* =========================================================
-   FASIM 1M PRO
-   FRONTEND APPLICATION
-========================================================= */
-
-const CONFIG = {
-
-  /*
-   * Kosong = DEMO MODE.
-   *
-   * Contoh production:
-   *
-   * API_BASE:
-   * "https://api.domainanda.com"
-   */
-  API_BASE: "",
-
-  POLL_MS: 3000,
-
-  DEFAULT_ASSET: "XAUUSD"
-
-};
-
-
-const state = {
-
-  asset: "XAUUSD",
-
-  botRunning: true,
-
-  emergency: false,
-
-  demo: true,
-
-  price: {
-    XAUUSD: 2650.20,
-    BTCUSD: 116420
-  },
-
-  lastPrice: {
-    XAUUSD: 2650.20,
-    BTCUSD: 116420
-  },
-
-  balance: 503.00,
-
-  equity: 511.40,
-
-  floating: 8.40,
-
-  todayPL: 18.70
-
-};
-
-
-/* =========================================================
-   UTILITIES
-========================================================= */
-
-function money(value){
-
-  return new Intl.NumberFormat(
-    "en-US",
-    {
-      style:"currency",
-      currency:"USD",
-      minimumFractionDigits:2
-    }
-  ).format(value);
+  }).join("");
 
 }
 
 
-function number(value, digits=2){
+/* ============================================================
+   HISTORY
+   ============================================================ */
 
-  return Number(value).toLocaleString(
-    "en-US",
-    {
-      minimumFractionDigits:digits,
-      maximumFractionDigits:digits
-    }
-  );
+function renderHistory(state) {
 
-}
+  const history =
+    Array.isArray(state?.history)
+      ? state.history
+      : [];
 
-
-function toast(message){
-
-  const el =
-    document.getElementById("toast");
-
-  el.textContent = message;
-
-  el.classList.add("show");
-
-  clearTimeout(window.__toastTimer);
-
-  window.__toastTimer =
-    setTimeout(
-      () => el.classList.remove("show"),
-      2200
+  const closed =
+    history.filter(x =>
+      String(x.event || "").toUpperCase() === "EXIT" ||
+      x.result
     );
 
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function openScreen(name, button){
-
-  document
-    .querySelectorAll(".screen")
-    .forEach(
-      el => el.classList.remove("active")
+  const wins =
+    closed.filter(x =>
+      String(x.result || "").toUpperCase() === "WIN"
     );
 
-  const screen =
-    document.getElementById(
-      "screen-" + name
+  const losses =
+    closed.filter(x =>
+      String(x.result || "").toUpperCase() === "LOSS"
     );
 
-  if(screen){
-    screen.classList.add("active");
-  }
-
-  document
-    .querySelectorAll(".nav-btn")
-    .forEach(
-      el => el.classList.remove("active")
+  const totalR =
+    closed.reduce(
+      (sum,x) =>
+        sum + (Number(x.r) || 0),
+      0
     );
 
-  if(button){
-    button.classList.add("active");
-  }
+  const rate =
+    closed.length
+      ? (wins.length / closed.length) * 100
+      : 0;
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+  document.getElementById("hClosed").textContent =
+    closed.length;
 
-}
+  document.getElementById("hWin").textContent =
+    wins.length;
 
+  document.getElementById("hLoss").textContent =
+    losses.length;
 
-/* =========================================================
-   ASSET SWITCH
-========================================================= */
+  document.getElementById("hRate").textContent =
+    `${rate.toFixed(1)}%`;
 
-document
-  .querySelectorAll(".asset-btn")
-  .forEach(btn => {
+  document.getElementById("hR").textContent =
+    `${totalR.toFixed(2)} R`;
 
-    btn.addEventListener(
-      "click",
-      () => {
+  const body =
+    document.getElementById("historyBody");
 
-        document
-          .querySelectorAll(".asset-btn")
-          .forEach(
-            x => x.classList.remove("active")
-          );
+  if (!closed.length) {
 
-        btn.classList.add("active");
-
-        state.asset =
-          btn.dataset.asset;
-
-        updateAssetUI();
-
-      }
-    );
-
-  });
-
-
-function updateAssetUI(){
-
-  const asset =
-    state.asset;
-
-  document
-    .getElementById("heroSymbol")
-    .textContent =
-      asset + " · EXNESS";
-
-  document
-    .getElementById("chartAsset")
-    .textContent =
-      asset;
-
-  const price =
-    state.price[asset];
-
-  document
-    .getElementById("heroPrice")
-    .textContent =
-      number(
-        price,
-        asset === "BTCUSD" ? 0 : 2
-      );
-
-  if(asset === "BTCUSD"){
-
-    document
-      .getElementById("heroSignal")
-      .textContent = "BUY";
-
-    document
-      .getElementById("scoreValue")
-      .textContent = "8.1";
-
-    document
-      .getElementById("entryPrice")
-      .textContent =
-        number(price,0);
-
-  }
-
-  else{
-
-    document
-      .getElementById("heroSignal")
-      .textContent = "BUY";
-
-    document
-      .getElementById("scoreValue")
-      .textContent = "8.7";
-
-    document
-      .getElementById("entryPrice")
-      .textContent =
-        number(price,2);
-
-  }
-
-}
-
-
-/* =========================================================
-   BOT
-========================================================= */
-
-function toggleBot(){
-
-  if(state.emergency){
-
-    toast(
-      "Emergency Stop aktif. Reset melalui backend."
-    );
+    body.innerHTML = `
+      <tr>
+        <td colspan="7" class="empty">
+          Belum ada trade closed.
+        </td>
+      </tr>
+    `;
 
     return;
-
   }
 
-  state.botRunning =
-    !state.botRunning;
+  body.innerHTML =
+    closed.slice(0,50).map(x => {
 
-  const sw =
-    document.getElementById("botSwitch");
+      const result =
+        String(x.result || "—").toUpperCase();
 
-  const title =
-    document.getElementById("botTitle");
+      const resultClass =
+        result === "WIN"
+          ? "win"
+          : result === "LOSS"
+            ? "loss"
+            : "";
 
-  const sub =
-    document.getElementById("botSubtitle");
+      return `
 
-  if(state.botRunning){
+        <tr>
 
-    sw.classList.add("on");
+          <td>
+            ${esc(
+              fmtTime(
+                x.time ||
+                x.updatedAt
+              )
+            )}
+          </td>
 
-    title.textContent =
-      "BOT RUNNING";
+          <td>
+            ${esc(x.symbol || "XAUUSD")}
+          </td>
 
-    sub.textContent =
-      "FASIM 1M execution engine active";
+          <td>
+            ${esc(
+              String(
+                x.side ||
+                x.action ||
+                "—"
+              ).toUpperCase()
+            )}
+          </td>
 
-    toast("Bot FASIM 1M RUNNING");
+          <td>
+            ${esc(
+              x.type ||
+              x.orderType ||
+              "—"
+            )}
+          </td>
 
-    apiPost(
-      "/api/bot/start",
-      {}
-    );
+          <td class="${resultClass}">
+            ${esc(result)}
+          </td>
 
-  }
+          <td>
+            ${x.r !== undefined
+              ? `${Number(x.r).toFixed(2)} R`
+              : "—"}
+          </td>
 
-  else{
+          <td>
+            ${esc(
+              x.reason ||
+              x.exitReason ||
+              "—"
+            )}
+          </td>
 
-    sw.classList.remove("on");
+        </tr>
 
-    title.textContent =
-      "BOT PAUSED";
+      `;
 
-    sub.textContent =
-      "New entries are blocked";
-
-    toast("Bot PAUSED");
-
-    apiPost(
-      "/api/bot/pause",
-      {}
-    );
-
-  }
+    }).join("");
 
 }
 
 
-/* =========================================================
-   EMERGENCY
-========================================================= */
+/* ============================================================
+   FULL RENDER
+   ============================================================ */
 
-function emergencyStop(){
+function renderState(state) {
 
-  const confirmed =
-    confirm(
-      "Aktifkan EMERGENCY STOP?"
-    );
-
-  if(!confirmed) return;
-
-  state.emergency = true;
-  state.botRunning = false;
-
-  document
-    .getElementById("botSwitch")
-    .classList.remove("on");
-
-  document
-    .getElementById("botTitle")
-    .textContent =
-      "EMERGENCY STOP";
-
-  document
-    .getElementById("botSubtitle")
-    .textContent =
-      "New execution disabled";
-
-  toast(
-    "EMERGENCY STOP AKTIF"
-  );
-
-  apiPost(
-    "/api/bot/emergency-stop",
-    {}
-  );
-
-}
-
-
-/* =========================================================
-   MANUAL TRADE
-========================================================= */
-
-function manualAction(side){
-
-  if(state.emergency){
-
-    toast(
-      "Order diblokir oleh Emergency Stop"
-    );
-
+  if (!state) {
     return;
-
   }
 
-  if(!state.botRunning){
+  lastState = state;
 
-    toast(
-      "Bot paused. Manual action tetap perlu backend approval."
-    );
+  renderDashboard(state);
 
-  }
+  renderSignal(state);
 
-  const confirmed =
-    confirm(
-      "Kirim order " +
-      side +
-      " untuk " +
-      state.asset +
-      "?"
-    );
+  renderLevels(state);
 
-  if(!confirmed) return;
+  renderZones(state);
 
-  toast(
-    "Order " +
-    side +
-    " dikirim ke execution engine"
-  );
+  renderHistory(state);
 
-  apiPost(
-    "/api/orders/market",
-    {
-      symbol:state.asset,
-      side:side
-    }
-  );
+  document.getElementById("lastUpdate").textContent =
+    `Last update: ${fmtTime(state.updatedAt || new Date())}`;
 
 }
 
 
-/* =========================================================
-   POSITION
-========================================================= */
+/* ============================================================
+   API
+   ============================================================ */
 
-function closePosition(){
+async function loadSignal() {
 
-  const confirmed =
-    confirm(
-      "Tutup posisi " +
-      state.asset +
-      "?"
-    );
-
-  if(!confirmed) return;
-
-  toast(
-    "Close request dikirim"
-  );
-
-  apiPost(
-    "/api/positions/close",
-    {
-      symbol:state.asset
-    }
-  );
-
-}
-
-
-function modifyPosition(){
-
-  toast(
-    "Modify panel akan dikontrol execution engine"
-  );
-
-}
-
-
-/* =========================================================
-   SETTINGS
-========================================================= */
-
-function saveRisk(){
-
-  const data = {
-
-    riskTrade:
-      Number(
-        document.getElementById(
-          "riskTrade"
-        ).value
-      ),
-
-    maxDailyLoss:
-      Number(
-        document.getElementById(
-          "maxDailyLoss"
-        ).value
-      ),
-
-    maxTrades:
-      Number(
-        document.getElementById(
-          "maxTrades"
-        ).value
-      ),
-
-    maxSpread:
-      Number(
-        document.getElementById(
-          "maxSpread"
-        ).value
-      )
-
-  };
-
-  localStorage.setItem(
-    "fasim-risk",
-    JSON.stringify(data)
-  );
-
-  apiPost(
-    "/api/settings/risk",
-    data
-  );
-
-  toast(
-    "Risk settings tersimpan"
-  );
-
-}
-
-
-function saveStrategy(){
-
-  const data = {
-
-    minScore:
-      Number(
-        document.getElementById(
-          "minScore"
-        ).value
-      ),
-
-    slAtr:
-      Number(
-        document.getElementById(
-          "slAtr"
-        ).value
-      ),
-
-    tp1RR:
-      Number(
-        document.getElementById(
-          "tp1RR"
-        ).value
-      ),
-
-    tp2RR:
-      Number(
-        document.getElementById(
-          "tp2RR"
-        ).value
-      ),
-
-    tp3RR:
-      Number(
-        document.getElementById(
-          "tp3RR"
-        ).value
-      )
-
-  };
-
-  localStorage.setItem(
-    "fasim-strategy",
-    JSON.stringify(data)
-  );
-
-  apiPost(
-    "/api/settings/strategy",
-    data
-  );
-
-  toast(
-    "Strategy settings tersimpan"
-  );
-
-}
-
-
-/* =========================================================
-   LOCAL STORAGE
-========================================================= */
-
-function loadSettings(){
-
-  try{
-
-    const risk =
-      JSON.parse(
-        localStorage.getItem(
-          "fasim-risk"
-        )
-      );
-
-    if(risk){
-
-      document.getElementById(
-        "riskTrade"
-      ).value =
-        risk.riskTrade;
-
-      document.getElementById(
-        "maxDailyLoss"
-      ).value =
-        risk.maxDailyLoss;
-
-      document.getElementById(
-        "maxTrades"
-      ).value =
-        risk.maxTrades;
-
-      document.getElementById(
-        "maxSpread"
-      ).value =
-        risk.maxSpread;
-
-    }
-
-
-    const strategy =
-      JSON.parse(
-        localStorage.getItem(
-          "fasim-strategy"
-        )
-      );
-
-    if(strategy){
-
-      document.getElementById(
-        "minScore"
-      ).value =
-        strategy.minScore;
-
-      document.getElementById(
-        "slAtr"
-      ).value =
-        strategy.slAtr;
-
-      document.getElementById(
-        "tp1RR"
-      ).value =
-        strategy.tp1RR;
-
-      document.getElementById(
-        "tp2RR"
-      ).value =
-        strategy.tp2RR;
-
-      document.getElementById(
-        "tp3RR"
-      ).value =
-        strategy.tp3RR;
-
-    }
-
-  }catch(e){
-
-    console.warn(
-      "Settings load error",
-      e
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   DEMO PRICE ENGINE
-========================================================= */
-
-function simulateMarket(){
-
-  if(!state.demo) return;
-
-  const asset =
-    state.asset;
-
-  const current =
-    state.price[asset];
-
-  const volatility =
-    asset === "XAUUSD"
-      ? .55
-      : 85;
-
-  const move =
-    (Math.random() - .48)
-    * volatility;
-
-  state.lastPrice[asset] =
-    current;
-
-  state.price[asset] =
-    Math.max(
-      asset === "XAUUSD"
-        ? 100
-        : 1000,
-      current + move
-    );
-
-  updateAssetUI();
-
-}
-
-
-setInterval(
-  simulateMarket,
-  1500
-);
-
-
-/* =========================================================
-   API LAYER
-========================================================= */
-
-async function apiFetch(
-  path,
-  options={}
-){
-
-  if(!CONFIG.API_BASE){
-
-    return {
-      demo:true,
-      path:path
-    };
-
-  }
-
-  try{
+  try {
 
     const response =
       await fetch(
-        CONFIG.API_BASE + path,
+        `${API_URL}?t=${Date.now()}`,
         {
-          credentials:"include",
-          headers:{
-            "Content-Type":
-              "application/json",
-            ...(options.headers || {})
-          },
-          ...options
+          method:"GET",
+          cache:"no-store"
         }
       );
 
-    if(!response.ok){
-
+    if (!response.ok) {
       throw new Error(
-        "HTTP " +
-        response.status
+        `HTTP ${response.status}`
       );
-
     }
 
-    return await response.json();
+    const data =
+      await response.json();
 
-  }catch(error){
+    setConnection("online");
+
+    document.getElementById("apiStatus").textContent =
+      "API: ONLINE";
+
+    document.getElementById("apiStatus").className =
+      "status-api ok";
+
+    renderState(data);
+
+  } catch(error) {
 
     console.error(
-      "API ERROR:",
+      "FASIM API ERROR:",
       error
     );
 
-    toast(
-      "Backend connection error"
-    );
+    setConnection("offline");
 
-    return null;
+    document.getElementById("apiStatus").textContent =
+      "API: OFFLINE";
+
+    document.getElementById("apiStatus").className =
+      "status-api bad";
+
+    document.getElementById("mAPI").textContent =
+      "OFFLINE";
 
   }
 
 }
 
 
-async function apiGet(path){
+/* ============================================================
+   START
+   ============================================================ */
 
-  return apiFetch(
-    path,
-    {
-      method:"GET"
-    }
-  );
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
 
-}
+    loadTradingView("1");
 
+    loadSignal();
 
-async function apiPost(
-  path,
-  body
-){
-
-  return apiFetch(
-    path,
-    {
-      method:"POST",
-      body:JSON.stringify(body)
-    }
-  );
-
-}
-
-
-/* =========================================================
-   BACKEND SYNC
-========================================================= */
-
-async function syncBackend(){
-
-  if(!CONFIG.API_BASE){
-
-    state.demo = true;
-
-    document
-      .getElementById(
-        "connectionStatus"
-      )
-      .innerHTML =
-      '<span class="dot"></span><span>DEMO</span>';
-
-    return;
-
-  }
-
-  state.demo = false;
-
-  const data =
-    await apiGet(
-      "/api/dashboard"
-    );
-
-  if(!data) return;
-
-  if(data.price){
-
-    state.price =
-      data.price;
-
-  }
-
-  if(
-    typeof data.balance ===
-    "number"
-  ){
-
-    state.balance =
-      data.balance;
-
-  }
-
-  if(
-    typeof data.equity ===
-    "number"
-  ){
-
-    state.equity =
-      data.equity;
-
-  }
-
-  if(
-    typeof data.floating ===
-    "number"
-  ){
-
-    state.floating =
-      data.floating;
-
-  }
-
-  if(
-    typeof data.todayPL ===
-    "number"
-  ){
-
-    state.todayPL =
-      data.todayPL;
-
-  }
-
-  updateDashboard();
-
-}
-
-
-/* =========================================================
-   DASHBOARD UPDATE
-========================================================= */
-
-function updateDashboard(){
-
-  document.getElementById(
-    "balance"
-  ).textContent =
-    money(state.balance);
-
-  document.getElementById(
-    "equity"
-  ).textContent =
-    money(state.equity);
-
-  const floating =
-    document.getElementById(
-      "floating"
-    );
-
-  floating.textContent =
-    money(state.floating);
-
-  floating.className =
-    "metric-value " +
-    (
-      state.floating >= 0
-        ? "green"
-        : "red"
-    );
-
-  const today =
-    document.getElementById(
-      "todayPL"
-    );
-
-  today.textContent =
-    (
-      state.todayPL >= 0
-        ? "+"
-        : ""
-    ) +
-    money(state.todayPL);
-
-  today.className =
-    "metric-value " +
-    (
-      state.todayPL >= 0
-        ? "green"
-        : "red"
-    );
-
-}
-
-
-/* =========================================================
-   PWA
-========================================================= */
-
-let deferredPrompt = null;
-
-window.addEventListener(
-  "beforeinstallprompt",
-  event => {
-
-    event.preventDefault();
-
-    deferredPrompt = event;
-
-  }
-);
-
-
-async function installPWA(){
-
-  if(!deferredPrompt){
-
-    toast(
-      "Browser belum menyediakan install prompt"
-    );
-
-    return;
-
-  }
-
-  deferredPrompt.prompt();
-
-  const result =
-    await deferredPrompt.userChoice;
-
-  deferredPrompt = null;
-
-  if(
-    result.outcome === "accepted"
-  ){
-
-    toast(
-      "FASIM 1M berhasil diinstall"
+    // Polling signal Vercel
+    setInterval(
+      loadSignal,
+      5000
     );
 
   }
-
-}
-
-
-/* =========================================================
-   SERVICE WORKER
-========================================================= */
-
-if(
-  "serviceWorker" in navigator
-){
-
-  window.addEventListener(
-    "load",
-    () => {
-
-      navigator.serviceWorker
-        .register(
-          "sw.js"
-        )
-        .catch(
-          error =>
-            console.warn(
-              "SW error",
-              error
-            )
-        );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
-loadSettings();
-
-updateAssetUI();
-
-updateDashboard();
-
-syncBackend();
-
-setInterval(
-  syncBackend,
-  CONFIG.POLL_MS
 );
 
 </script>
